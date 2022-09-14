@@ -8,13 +8,14 @@ abstract class FlutterDesktopSleepPlatform extends PlatformInterface {
 
   static final Object _token = Object();
 
-  static FlutterDesktopSleepPlatform _instance = MethodChannelFlutterDesktopSleep();
+  static FlutterDesktopSleepPlatform _instance =
+      MethodChannelFlutterDesktopSleep();
 
   /// The default instance of [FlutterDesktopSleepPlatform] to use.
   ///
   /// Defaults to [MethodChannelFlutterDesktopSleep].
   static FlutterDesktopSleepPlatform get instance => _instance;
-  
+
   /// Platform-specific implementations should set this with their own
   /// platform-specific class that extends [FlutterDesktopSleepPlatform] when
   /// they register themselves.

@@ -3,7 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_desktop_sleep/flutter_desktop_sleep_method_channel.dart';
 
 void main() {
-  MethodChannelFlutterDesktopSleep platform = MethodChannelFlutterDesktopSleep();
+  MethodChannelFlutterDesktopSleep platform =
+      MethodChannelFlutterDesktopSleep();
   const MethodChannel channel = MethodChannel('flutter_desktop_sleep');
 
   TestWidgetsFlutterBinding.ensureInitialized();

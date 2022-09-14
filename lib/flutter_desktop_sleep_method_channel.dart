@@ -11,14 +11,15 @@ class MethodChannelFlutterDesktopSleep extends FlutterDesktopSleepPlatform {
 
   @override
   Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
+    final version =
+        await methodChannel.invokeMethod<String>('getPlatformVersion');
     return version;
   }
 
   @override
   void setWindowSleepHandler(Future<void> Function(String?)? handler) {
     methodChannel.setMethodCallHandler((call) async {
-       if (call.method == 'onWindowsSleep') {
+      if (call.method == 'onWindowsSleep') {
         // Note: the 'destroyWindow' method just close the window without
         // any confirming.
         if (handler != null) {
