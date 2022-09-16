@@ -4,10 +4,9 @@ import 'package:flutter_desktop_sleep/flutter_desktop_sleep_platform_interface.d
 import 'package:flutter_desktop_sleep/flutter_desktop_sleep_method_channel.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-class MockFlutterDesktopSleepPlatform 
+class MockFlutterDesktopSleepPlatform
     with MockPlatformInterfaceMixin
     implements FlutterDesktopSleepPlatform {
-
   @override
   Future<String?> getPlatformVersion() => Future.value('42');
 
@@ -15,10 +14,17 @@ class MockFlutterDesktopSleepPlatform
   void setWindowSleepHandler(Future<void> Function(String? p1)? handler) {
     // TODO: implement setWindowSleepHandler
   }
+
+  @override
+  Future<void> terminateApp() {
+    // TODO: implement terminateApp
+    throw UnimplementedError();
+  }
 }
 
 void main() {
-  final FlutterDesktopSleepPlatform initialPlatform = FlutterDesktopSleepPlatform.instance;
+  final FlutterDesktopSleepPlatform initialPlatform =
+      FlutterDesktopSleepPlatform.instance;
 
   test('$MethodChannelFlutterDesktopSleep is the default instance', () {
     expect(initialPlatform, isInstanceOf<MethodChannelFlutterDesktopSleep>());
@@ -26,9 +32,10 @@ void main() {
 
   test('getPlatformVersion', () async {
     FlutterDesktopSleep flutterDesktopSleepPlugin = FlutterDesktopSleep();
-    MockFlutterDesktopSleepPlatform fakePlatform = MockFlutterDesktopSleepPlatform();
+    MockFlutterDesktopSleepPlatform fakePlatform =
+        MockFlutterDesktopSleepPlatform();
     FlutterDesktopSleepPlatform.instance = fakePlatform;
-  
+
     expect(await flutterDesktopSleepPlugin.getPlatformVersion(), '42');
   });
 }

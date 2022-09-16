@@ -1,5 +1,5 @@
 name: flutter_desktop_sleep
-description: A plugin for detect sleep and wake up of MacOs and Windows
+description: A plugin for detect sleep and wake up of MacOs and Windows, you can make user offline or online with help of this plugin.
 version: 0.0.1
 homepage: https://github.com/bikram0000/flutter_desktop_sleep/tree/master
 repository: https://github.com/bikram0000/flutter_desktop_sleep/tree/master
