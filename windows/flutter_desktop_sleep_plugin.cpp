@@ -76,18 +76,36 @@ void FlutterDesktopSleepPlugin::HandleMethodCall(
       version_stream << "7";
     }
     result->Success(flutter::EncodableValue(version_stream.str()));
-  } else {
+  }  else if (method_call.method_name().compare("terminateWindow") == 0)
+            {
+                if (m_windowHandle)
+                {
+                    DestroyWindow(m_windowHandle);
+                    result->Success(flutter::EncodableValue(nullptr));
+                }
+                else
+                {
+                    result->Error("no_window", "The active window does not exist");
+                }
+            } else {
     result->NotImplemented();
   }
 }
  LRESULT CALLBACK
     WindowCloseWndProc(HWND hWnd, UINT iMessage, WPARAM wparam, LPARAM lparam)
     {
-        if (iMessage == WM_CLOSE)
+
+      if (iMessage == WM_CLOSE)
+            {
+                auto args = std::make_unique<flutter::EncodableValue>("terminate_app");
+                channel_->InvokeMethod("onWindowsSleep", std::move(args));
+                return 0;
+            }
+        if (iMessage == WM_QUERYENDSESSION )
         {
-            auto args = std::make_unique<flutter::EncodableValue>(nullptr);
-            channel_->InvokeMethod("onWindowClose", std::move(args));
-            return 0;
+           auto args = std::make_unique<flutter::EncodableValue>("terminate_app");
+           channel_->InvokeMethod("onWindowsSleep", std::move(args));
+           return 0;
         }
         if (iMessage == WM_POWERBROADCAST)
         {
