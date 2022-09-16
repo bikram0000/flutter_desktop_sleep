@@ -4,6 +4,7 @@ class FlutterDesktopSleep {
   Future<String?> getPlatformVersion() {
     return FlutterDesktopSleepPlatform.instance.getPlatformVersion();
   }
+
   Future<void> terminateApp() {
     return FlutterDesktopSleepPlatform.instance.terminateApp();
   }

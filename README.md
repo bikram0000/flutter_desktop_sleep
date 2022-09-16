@@ -1,15 +1,64 @@
 # flutter_desktop_sleep
 
-A plugin for detect sleep and wake up of MacOs and Windows
+2022 © Bikramaditya Meher
 
-## Getting Started
+[![Pub](https://img.shields.io/pub/v/flutter_desktop_sleep.svg)](https://pub.dartlang.org/packages/flutter_desktop_sleep) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/bikram0000/flutter_desktop_sleep/blob/master/LICENSE)
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+flutter_window_sleep lets you know your Flutter app if app going to close/sleep/wakeup and has a
+chance to confirm if the user want to close there running task such as logout function, etc. It
+works on desktop platforms including Windows and macOS. Thanks
+to [flutter_window_close] (https://pub.dartlang.org/packages/flutter_window_close) it was help me
+very much.
 
-For help getting started with Flutter development, view the
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)
+![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
+
+## Example
+
+```dart
+
+FlutterDesktopSleep flutterDesktopSleep = FlutterDesktopSleep();
+flutterDesktopSleep.setWindowSleepHandler((
+String? s
+)
+async {
+if (s != null) {
+// autoClockOff(note: s, shouldThread: false, shouldOn: true);
+if (s == 'sleep') {
+// Laptop sleep ;
+} else if (s == 'woke_up') {
+// Laptop woke up ;
+} else if (s == 'terminate_app') {
+flutterDesktopSleep.terminateApp();
+}
+}
+});
+```
+## macOS
+For macOs you need to add following code to your macos/Runner/AppDelegate.swift  
+
+
+```dart
+import Cocoa
+import FlutterMacOS
+import Firebase
+import flutter_desktop_sleep
+
+@NSApplicationMain
+class AppDelegate: FlutterAppDelegate {
+var _windowManager = FlutterDesktopSleepPlugin()
+override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+return true
+}
+override func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+let controller : FlutterViewController = mainFlutterWindow?.contentViewController as! FlutterViewController
+return _windowManager.applicationShouldTerminate(controller);
+}
+
+}
+```
+
+## Windows
+no need any setup just
+
 
