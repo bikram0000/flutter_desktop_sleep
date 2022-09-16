@@ -16,27 +16,27 @@ very much.
 ## Example
 
 ```dart
-
-FlutterDesktopSleep flutterDesktopSleep = FlutterDesktopSleep();
-flutterDesktopSleep.setWindowSleepHandler((
-String? s
-)
-async {
-if (s != null) {
-// autoClockOff(note: s, shouldThread: false, shouldOn: true);
-if (s == 'sleep') {
-// Laptop sleep ;
-} else if (s == 'woke_up') {
-// Laptop woke up ;
-} else if (s == 'terminate_app') {
-flutterDesktopSleep.terminateApp();
-}
-}
-});
+    FlutterDesktopSleep flutterDesktopSleep = FlutterDesktopSleep();
+    flutterDesktopSleep.setWindowSleepHandler((String? s) async {
+      Get.log('dsfsadf $s');
+      if (s != null) {
+        // autoClockOff(note: s, shouldThread: false, shouldOn: true);
+        if (s == 'sleep') {
+          autoClockOff(note: 'Laptop sleep', shouldOn: false);
+        } else if (s == 'woke_up') {
+          autoClockOff(note: 'Laptop woke up', shouldOn: true);
+        } else if (s == 'terminate_app') {
+          await autoClockOff(
+              note: 'App Terminate', shouldThread: false, shouldOn: false);
+          flutterDesktopSleep.terminateApp();
+        }
+      }
+    });
 ```
-## macOS
-For macOs you need to add following code to your macos/Runner/AppDelegate.swift  
 
+## macOS
+
+For macOs you need to add following code to your macos/Runner/AppDelegate.swift
 
 ```dart
 import Cocoa
@@ -47,18 +47,17 @@ import flutter_desktop_sleep
 @NSApplicationMain
 class AppDelegate: FlutterAppDelegate {
 var _windowManager = FlutterDesktopSleepPlugin()
-override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-return true
-}
-override func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
-let controller : FlutterViewController = mainFlutterWindow?.contentViewController as! FlutterViewController
-return _windowManager.applicationShouldTerminate(controller);
+  override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+    return true
+  }
+  override func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+  let controller : FlutterViewController = mainFlutterWindow?.contentViewController as! FlutterViewController
+  return _windowManager.applicationShouldTerminate(controller);
+  }
 }
 
-}
 ```
 
 ## Windows
+
 no need any setup just
-
-
