@@ -17,6 +17,11 @@ class MethodChannelFlutterDesktopSleep extends FlutterDesktopSleepPlatform {
   }
 
   @override
+  Future<void> terminateApp() async {
+    await methodChannel.invokeMethod<String>('terminateWindow');
+  }
+
+  @override
   void setWindowSleepHandler(Future<void> Function(String?)? handler) {
     methodChannel.setMethodCallHandler((call) async {
       if (call.method == 'onWindowsSleep') {

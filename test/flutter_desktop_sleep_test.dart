@@ -14,6 +14,12 @@ class MockFlutterDesktopSleepPlatform
   void setWindowSleepHandler(Future<void> Function(String? p1)? handler) {
     // TODO: implement setWindowSleepHandler
   }
+
+  @override
+  Future<void> terminateApp() {
+    // TODO: implement terminateApp
+    throw UnimplementedError();
+  }
 }
 
 void main() {

@@ -28,6 +28,10 @@ abstract class FlutterDesktopSleepPlatform extends PlatformInterface {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
+  Future<void> terminateApp() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
   void setWindowSleepHandler(Future<void> Function(String?)? handler) {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
