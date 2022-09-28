@@ -95,7 +95,7 @@ void FlutterDesktopSleepPlugin::HandleMethodCall(
     WindowCloseWndProc(HWND hWnd, UINT iMessage, WPARAM wparam, LPARAM lparam)
     {
 
-      if (iMessage == WM_CLOSE)
+if (iMessage == WM_CLOSE)
             {
                 auto args = std::make_unique<flutter::EncodableValue>("terminate_app");
                 channel_->InvokeMethod("onWindowsSleep", std::move(args));

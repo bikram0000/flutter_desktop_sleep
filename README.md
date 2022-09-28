@@ -1,4 +1,4 @@
-# flutter_desktop_sleep
+# Flutter desktop sleep
 
 2022 © Bikramaditya Meher
 
@@ -7,7 +7,7 @@
 flutter_window_sleep lets you know your Flutter app if app going to close/sleep/wakeup and has a
 chance to confirm if the user want to close there running task such as logout function, etc. It
 works on desktop platforms including Windows and macOS. Thanks
-to [flutter_window_close] (https://pub.dartlang.org/packages/flutter_window_close) it was help me
+to [flutter_window_close](https://pub.dartlang.org/packages/flutter_window_close) it was help me
 very much.
 
 ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)
