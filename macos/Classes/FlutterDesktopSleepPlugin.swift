@@ -26,7 +26,7 @@ public class FlutterDesktopSleepPlugin: NSObject, FlutterPlugin {
             return .terminateLater
         case kAERestart, kAEShowRestartDialog:
             NSLog("Restart")
-            return .terminateNow
+            return .terminateLater
         case kAEShutDown, kAEShowShutdownDialog:
             NSLog("Shutdown")
             notificationChannel.invokeMethod("onWindowsSleep", arguments: "terminate_app")
