@@ -68,6 +68,17 @@ public class FlutterDesktopSleepPlugin: NSObject, FlutterPlugin {
                                                             name: NSWorkspace.didWakeNotification, object: nil)
           NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(sleepListener(_:)),
                                                             name: NSWorkspace.willUnmountNotification, object: nil)
+                                                            
+          NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(sleepListener(_:)),
+                                                            name: NSWorkspace.willPowerOffNotification, object: nil)                                                   
+          NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(sleepListener(_:)),
+                                                            name: NSWorkspace.willLaunchApplicationNotification, object: nil)
+          NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(sleepListener(_:)),
+                                                            name: NSWorkspace.didDeactivateApplicationNotification, object: nil)      
+          NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(sleepListener(_:)),
+                                                            name: NSWorkspace.screensDidSleepNotification, object: nil) 
+          NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(sleepListener(_:)),
+                                                            name: NSWorkspace.screensDidWakeNotification, object: nil)                                                                                                    
       }
 
       @objc public func sleepListener(_ aNotification: Notification) {
