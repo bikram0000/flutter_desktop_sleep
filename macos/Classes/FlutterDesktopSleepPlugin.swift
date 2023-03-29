@@ -61,52 +61,30 @@ public class FlutterDesktopSleepPlugin: NSObject, FlutterPlugin {
 
 
     public func applicationDidFinishLaunching2() {
-
           NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(sleepListener(_:)),
                                                             name: NSWorkspace.willSleepNotification, object: nil)
           NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(sleepListener(_:)),
-                                                            name: NSWorkspace.didWakeNotification, object: nil)
-          NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(sleepListener(_:)),
-                                                            name: NSWorkspace.willUnmountNotification, object: nil)                                               
+                                                            name: NSWorkspace.didWakeNotification, object: nil)                                              
           NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(sleepListener(_:)),
                                                             name: NSWorkspace.willPowerOffNotification, object: nil)   
           NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(sleepListener(_:)),
-                                                            name: NSWorkspace.willLaunchApplicationNotification, object: nil)
-          NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(sleepListener(_:)),
-                                                            name: NSWorkspace.didDeactivateApplicationNotification, object: nil) 
-          NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(sleepListener(_:)),
-                                                            name: NSWorkspace.screensDidSleepNotification, object: nil) 
-          NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(sleepListener(_:)),
-                                                            name: NSWorkspace.screensDidWakeNotification, object: nil)                                                                                                    
+                                                            name: NSWorkspace.screensDidSleepNotification, object: nil)                                                                                                
       }
 
       @objc public func sleepListener(_ aNotification: Notification) {
 
           if aNotification.name == NSWorkspace.willSleepNotification {
-              methodChannel?.invokeMethod("onWindowsSleep", arguments: "willSleep")
+              methodChannel?.invokeMethod("onWindowsSleep", arguments: "sleep_from_menu")
               NSLog("Going to sleep")
           } else if aNotification.name == NSWorkspace.didWakeNotification {
-               methodChannel?.invokeMethod("onWindowsSleep", arguments: "didWake")
+               methodChannel?.invokeMethod("onWindowsSleep", arguments: "wake_up")
               NSLog("didWake")
-          } else if aNotification.name == NSWorkspace.willUnmountNotification {
-               methodChannel?.invokeMethod("onWindowsSleep", arguments: "willUnmount")
-              NSLog("willUnmount")
-          } 
-          else if aNotification.name == NSWorkspace.willPowerOffNotification {
+          } else if aNotification.name == NSWorkspace.willPowerOffNotification {
                methodChannel?.invokeMethod("onWindowsSleep", arguments: "willPowerOff")
               NSLog("willPowerOff")
-          } else if aNotification.name == NSWorkspace.willLaunchApplicationNotification {
-               methodChannel?.invokeMethod("onWindowsSleep", arguments: "willLaunch")
-              NSLog("willLaunch")
-          } else if aNotification.name == NSWorkspace.didDeactivateApplicationNotification {
-               methodChannel?.invokeMethod("onWindowsSleep", arguments: "didDeactivate")
-              NSLog("didDeactivate")
           } else if aNotification.name == NSWorkspace.screensDidSleepNotification {
                methodChannel?.invokeMethod("onWindowsSleep", arguments: "screensDidSleep")
               NSLog("screensDidSleep")
-          } else if aNotification.name == NSWorkspace.screensDidSleepNotification {
-               methodChannel?.invokeMethod("onWindowsSleep", arguments: "screensDidWake")
-              NSLog("screensDidWake")
           }
            else {
               NSLog("Some other event other than the first two")
