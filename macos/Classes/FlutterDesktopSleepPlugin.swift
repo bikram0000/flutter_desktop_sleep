@@ -25,17 +25,14 @@ public class FlutterDesktopSleepPlugin: NSObject, FlutterPlugin {
             notificationChannel.invokeMethod("onWindowsSleep", arguments: "terminate_app")
             return .terminateLater
         case kAERestart, kAEShowRestartDialog:
+            notificationChannel.invokeMethod("onWindowsSleep", arguments: "restart")
             NSLog("Restart")
-            return .terminateNow
+            return .terminateLater
         case kAEShutDown, kAEShowShutdownDialog:
             NSLog("Shutdown")
             notificationChannel.invokeMethod("onWindowsSleep", arguments: "terminate_app")
             return .terminateLater
         case 0:
-            // `enumCodeValue` docs:
-            //
-            //    The contents of the descriptor, as an enumeration type,
-            //    or 0 if an error occurs.
             NSLog("We don't know")
             notificationChannel.invokeMethod("onWindowsSleep", arguments: "terminate_app")
             return .terminateLater
@@ -69,7 +66,8 @@ public class FlutterDesktopSleepPlugin: NSObject, FlutterPlugin {
                                                             name: NSWorkspace.willSleepNotification, object: nil)
           NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(sleepListener(_:)),
                                                             name: NSWorkspace.didWakeNotification, object: nil)
-
+          NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(sleepListener(_:)),
+                                                            name: NSWorkspace.willUnmountNotification, object: nil)
       }
 
       @objc public func sleepListener(_ aNotification: Notification) {
@@ -79,6 +77,9 @@ public class FlutterDesktopSleepPlugin: NSObject, FlutterPlugin {
               NSLog("Going to sleep")
           } else if aNotification.name == NSWorkspace.didWakeNotification {
                methodChannel?.invokeMethod("onWindowsSleep", arguments: "woke_up")
+              NSLog("Woke up")
+          } else if aNotification.name == NSWorkspace.willUnmountNotification {
+               methodChannel?.invokeMethod("onWindowsSleep", arguments: "unmounting")
               NSLog("Woke up")
           } else {
               NSLog("Some other event other than the first two")
