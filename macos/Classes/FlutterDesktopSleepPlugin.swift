@@ -93,6 +93,7 @@ public class FlutterDesktopSleepPlugin: NSObject, FlutterPlugin {
                methodChannel?.invokeMethod("onWindowsSleep", arguments: "unmounting")
               NSLog("Woke up")
           } else {
+              methodChannel?.invokeMethod("onWindowsSleep", arguments: "\(aNotification)")
               NSLog("Some other event other than the first two")
           }
       }
