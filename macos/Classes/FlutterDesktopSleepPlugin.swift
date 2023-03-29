@@ -81,7 +81,7 @@ public class FlutterDesktopSleepPlugin: NSObject, FlutterPlugin {
               NSLog("didWake")
           } else if aNotification.name == NSWorkspace.willPowerOffNotification {
                methodChannel?.invokeMethod("onWindowsSleep", arguments: "willPowerOff")
-              NSLog("willPowerOff")
+              NSLog("willPowerOff or log out")
           } else if aNotification.name == NSWorkspace.screensDidSleepNotification {
                methodChannel?.invokeMethod("onWindowsSleep", arguments: "screensDidSleep")
               NSLog("screensDidSleep")
