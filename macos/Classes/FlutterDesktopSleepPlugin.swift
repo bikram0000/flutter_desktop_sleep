@@ -6,6 +6,8 @@ public class FlutterDesktopSleepPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
     let instance = FlutterDesktopSleepPlugin()
     let channel = FlutterMethodChannel(name: "flutter_desktop_sleep", binaryMessenger: registrar.messenger)
+      
+      
     instance.methodChannel=channel;
     instance.applicationDidFinishLaunching2()
     registrar.addMethodCallDelegate(instance, channel: channel)
@@ -48,11 +50,9 @@ public class FlutterDesktopSleepPlugin: NSObject, FlutterPlugin {
     case "getPlatformVersion":
       result("macOS " + ProcessInfo.processInfo.operatingSystemVersionString)
    case "terminateWindow":
-                  NSLog("Going to close app")
-                  DispatchQueue.main.async {
-                      NSApp.reply(toApplicationShouldTerminate: true)
-                  }
-                  result(nil)
+      NSLog("Going to close app")
+      NSApplication.shared.reply(toApplicationShouldTerminate: true)
+      result(nil)
     default:
       result(FlutterMethodNotImplemented)
     }
