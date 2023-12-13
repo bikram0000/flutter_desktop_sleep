@@ -25,23 +25,23 @@ public class FlutterDesktopSleepPlugin: NSObject, FlutterPlugin {
         case kAELogOut, kAEReallyLogOut:
             NSLog("Logout")
             notificationChannel.invokeMethod("onWindowsSleep", arguments: "terminate_app")
-            return .terminateLater
+            return .terminateNow
         case kAERestart, kAEShowRestartDialog:
             notificationChannel.invokeMethod("onWindowsSleep", arguments: "restart")
             NSLog("Restart")
-            return .terminateLater
+            return .terminateNow
         case kAEShutDown, kAEShowShutdownDialog:
             NSLog("Shutdown")
             notificationChannel.invokeMethod("onWindowsSleep", arguments: "terminate_app")
-            return .terminateLater
+            return .terminateNow
         case 0:
             NSLog("We don't know")
             notificationChannel.invokeMethod("onWindowsSleep", arguments: "terminate_app")
-            return .terminateLater
+            return .terminateNow
         default:
             NSLog("Cmd-Q, Quit menu item, ...")
             notificationChannel.invokeMethod("onWindowsSleep", arguments: "terminate_app")
-            return .terminateLater
+            return .terminateNow
         }
     }
 
